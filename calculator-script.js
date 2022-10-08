@@ -80,8 +80,8 @@ function isOperatorPresent(string) {
 // console.log(isOperatorPresent('23'));
 
 
-function isEmpty() {
-    for (let key of mainDisplay) {
+function isEmpty(theString) {
+    for (let key of theString) {
       // if the loop has started, there is a property
       return false;
     }
@@ -131,22 +131,26 @@ function isStringOperator(string) {
 
 function storeAndDisplay(string) {
     if (!isOperatorPresent(mainDisplay)) {
-        if (isEmpty() && string === '0') {
+        if (isEmpty(mainDisplay) && string === '0') {
             return;
         }
-        else if (isEmpty() && string === '0') {
+        else if (isEmpty(mainDisplay) && isStringOperator(string)) {
             return;
         }
-        else if (isEmpty() && isStringOperator(string)) {
-            return;
-        }
-        else if (!isEmpty() && isStringOperator(string)) {
+        else if (!isEmpty(mainDisplay) && isStringOperator(string)) {
             operator += string;
             mainDisplay += string;
             disp.textContent += string;
         }
         else {
             num1 += string;
+            mainDisplay += string;
+            disp.textContent += string;
+        }
+    }
+    else {
+        if (isStringNumber(string)) {
+            num2 += string;
             mainDisplay += string;
             disp.textContent += string;
         }
@@ -165,29 +169,38 @@ function storeAndDisplay(string) {
 // console.log(mainDisplay);
 // console.log(num1);
 
-storeAndDisplay('1');
-storeAndDisplay('1');
-storeAndDisplay('+');
-storeAndDisplay('2');
-console.log(mainDisplay);
-console.log(operator);
-console.log(num1);
+// storeAndDisplay('1');
+// storeAndDisplay('1');
+// storeAndDisplay('+');
+// storeAndDisplay('2');
+// console.log(mainDisplay);
+// console.log(operator);
+// console.log(num1);
+
+
+function clearEverything() {
+    disp.textContent = '';
+    num1 = '';
+    num2 = '';
+    operator = '';
+    mainDisplay = '';
+}
 
 
 
 function display(e) {
     // console.log(e.target.textContent);
     if (e.target.textContent === 'clear') {
-        disp.textContent = '';
-        num1 = '';
-        num2 = '';
-        operator = '';
+        clearEverything();
     }
-    else if (e.target.textContent === 'del') {
+    else if (e.target.textContent === 'del') { // have to work on it properly.
         // delete only the last char of the string inside the div display.
         let displayString = disp.textContent;
         const newString = displayString.slice(1);
         disp.textContent = newString;
+    }
+    else if (e.target.textContent === 'clear') {
+        
     }
     else {
         storeAndDisplay(e.target.textContent); // let's say '2'
