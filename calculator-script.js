@@ -2,7 +2,6 @@
 
 const disp = document.querySelector('.display');
 const resultDisplay = document.querySelector('.resultDisplay');
-// console.log(resultDisplay);
 let mainDisplay = disp.textContent;
 const buttons = document.querySelectorAll('button');
 const numbers = ['0','1','2','3','4','5','6','7','8','9'];
@@ -135,13 +134,9 @@ function clearEverything() {
 }
 
 
-
 function storeAndDisplay(string) {
-    if (!isOperatorPresent(mainDisplay)) {
-        if (isEmpty(mainDisplay) && string === '0') {
-            return;
-        }
-        else if (isEmpty(mainDisplay) && isStringOperator(string)) {
+    if (isEmpty(operator)) {
+        if (isEmpty(mainDisplay) && isStringOperator(string)) {
             return;
         }
         else if (!isEmpty(mainDisplay) && isStringOperator(string)) {
@@ -155,20 +150,19 @@ function storeAndDisplay(string) {
         }
         else {
             num1 += string;
-            mainDisplay += string;
-            disp.textContent += string;
+            mainDisplay = num1;
+            disp.textContent = num1;
         }
     }
     else {
         if (isStringNumber(string)) {
-            if (isEmpty(num2) && string === '0') {
-                return;
+            if (num2 === ' -') {
+                mainDisplay += ' -';
+                disp.textContent += ' -';
             }
-            else {
-                num2 += string;
-                mainDisplay += string;
-                disp.textContent += string;
-            }
+            num2 += string;
+            mainDisplay += string;
+            disp.textContent += string;
         }
     }
 }
@@ -222,6 +216,15 @@ function display(e) {
         else {
             mainDisplay = x;
             disp.textContent = x;
+            operator = '';
+        }
+    }
+    else if (e.target.textContent === '(-)') {
+        if (isEmpty(num1)) {
+            num1 += ' -';
+        }
+        else if (isEmpty(num2)) {
+            num2 += ' -';
         }
     }
     else {
