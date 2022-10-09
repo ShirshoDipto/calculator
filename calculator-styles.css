@@ -38,7 +38,7 @@ button {
     width: 50px;
 }
 
-.calculator, .display, .buttons, .rows {
+.calculator, .display, .buttons, .rows, .mainDisplay, .resultDisplay {
     border: 2px solid blue;
     display: flex;
 
@@ -65,5 +65,14 @@ button {
     flex: 1;
     justify-content: space-around;
     align-items: center;
+}
+
+.mainDisplay {
+    flex-direction: column;
+    flex: 1;
+}
+
+.resultDisplay {
+    flex: 1;
 }
 

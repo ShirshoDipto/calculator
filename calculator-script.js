@@ -1,37 +1,35 @@
 
 
 const disp = document.querySelector('.display');
+const resultDisplay = document.querySelector('.resultDisplay');
+// console.log(resultDisplay);
+let mainDisplay = disp.textContent;
 const buttons = document.querySelectorAll('button');
 const numbers = ['0','1','2','3','4','5','6','7','8','9'];
+const operatorList = ['+', '-', '*', '/'];
 
 
 let num1 = '';
 let num2 = '';
 let operator = '';
 
-const operatorList = {
-    '+': 'plus',
-    '-': 'minus',
-    '*': 'multiply',
-    '/': 'divide'
-};
 
 function operate(operator, num1, num2) {
-    if (operator === 'add') {
-        return num1 + num2;
+    if (operator === '+') {
+        return parseInt(num1) + parseInt(num2);
     }
-    else if (operator === 'minus') {
-        return num1 - num2;
+    else if (operator === '-') {
+        return parseInt(num1) - parseInt(num2);
     }
-    else if (operator === 'multi') {
-        return num1 * num2;
+    else if (operator === '*') {
+        return parseInt(num1) * parseInt(num2);
     }
-    else if (operator === 'divide') {
-        if (num2 === 0) {
+    else if (operator === '/') {
+        if (parseInt(num2) === 0) {
             return "Math Error!"
         }
         else {
-            return num1 / num2;
+            return parseInt(num1) / num2;
         }
     }
 }
@@ -51,14 +49,13 @@ function operate(operator, num1, num2) {
 
 
 
-let mainDisplay = disp.textContent;
 // console.log(mainDisplay);
 
 
 
 function isOperatorPresent(string) {
     for (let char of string) {
-        for (let key in operatorList) {
+        for (let key of operatorList) {
             if (char === key) {
                 return true;
             }
@@ -110,7 +107,7 @@ function isStringNumber(string) {
 
 
 function isStringOperator(string) {
-    for (let x in operatorList) {
+    for (let x of operatorList) {
         if (x === string) {
             return true
         }
@@ -128,6 +125,16 @@ function isStringOperator(string) {
 // console.log(isStringOperator('-'));
 
 
+function clearEverything() {
+    disp.textContent = '';
+    resultDisplay.textContent = '';
+    num1 = '';
+    num2 = '';
+    operator = '';
+    mainDisplay = '';
+}
+
+
 
 function storeAndDisplay(string) {
     if (!isOperatorPresent(mainDisplay)) {
@@ -138,9 +145,13 @@ function storeAndDisplay(string) {
             return;
         }
         else if (!isEmpty(mainDisplay) && isStringOperator(string)) {
-            operator += string;
+            operator = string;
             mainDisplay += string;
             disp.textContent += string;
+        }
+        else if (!isEmpty(resultDisplay.textContent) && isStringNumber(string)) {
+            clearEverything();
+            storeAndDisplay(string);
         }
         else {
             num1 += string;
@@ -150,9 +161,14 @@ function storeAndDisplay(string) {
     }
     else {
         if (isStringNumber(string)) {
-            num2 += string;
-            mainDisplay += string;
-            disp.textContent += string;
+            if (isEmpty(num2) && string === '0') {
+                return;
+            }
+            else {
+                num2 += string;
+                mainDisplay += string;
+                disp.textContent += string;
+            }
         }
     }
 }
@@ -178,16 +194,6 @@ function storeAndDisplay(string) {
 // console.log(num1);
 
 
-function clearEverything() {
-    disp.textContent = '';
-    num1 = '';
-    num2 = '';
-    operator = '';
-    mainDisplay = '';
-}
-
-
-
 function display(e) {
     // console.log(e.target.textContent);
     if (e.target.textContent === 'clear') {
@@ -199,8 +205,24 @@ function display(e) {
         const newString = displayString.slice(1);
         disp.textContent = newString;
     }
-    else if (e.target.textContent === 'clear') {
-        
+    else if ((e.target.textContent === '=' || isStringOperator(e.target.textContent) && num2 !== '')) {
+        console.log(num1);
+        console.log(num2);
+        console.log(operator);
+        let x = operate(operator, num1, num2);
+        x = x.toString();
+        resultDisplay.textContent = x;
+        num1 = x;
+        num2 = '';
+        if (isStringOperator(e.target.textContent)) {
+            operator = e.target.textContent;
+            mainDisplay = x+operator;
+            disp.textContent = x+operator;
+        }
+        else {
+            mainDisplay = x;
+            disp.textContent = x;
+        }
     }
     else {
         storeAndDisplay(e.target.textContent); // let's say '2'
