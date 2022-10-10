@@ -1,15 +1,15 @@
 
 
-let num1 = '2';
-let num2 = '5';
-let operator = '-';
+let num1 = '';
+let num2 = '';
+let operator = '';
 
 
 
 
 const disp = document.querySelector('.display');
 const resultDisplay = document.querySelector('.resultDisplay');
-let mainDisplay = disp.textContent;
+// let mainDisplay = disp.textContent;
 // const buttons = document.querySelectorAll('button');
 
 const numbers = document.querySelectorAll('.number');
@@ -25,19 +25,63 @@ console.log(numbers);
 
 
 numbers.forEach(number => {
-    // button.addEventListener('click', displaytoreNumber);
+    number.addEventListener('click', displayStoreNumber);
 });
 
 operators.forEach(oper => {
-    button.addEventListener('click', displaytoreOperator);
+    oper.addEventListener('click', displayStoreOperator);
 });
 
 
 clear.addEventListener('click', clearEverything);
 // del.addEventListener('click', backspace);
-// negVal.addEventListener('click', insertNegative);
+negVal.addEventListener('click', insertNegative);
 // dot.addEventListener('click', addDecimal);
 equals.addEventListener('click', pressEquals);
+
+
+function insertNegative(e) {
+    if (num1 === '') {
+        num1 += ' -';
+        disp.textContent += ' -';
+    }
+    else if (num2 === '') {
+        num2 += ' -';
+        disp.textContent += ' -';
+    }
+}
+
+
+function displayStoreNumber(e) {
+    const string = e.target.textContent;
+    // console.log(string);
+    if (operator === '') {
+        num1 += string;
+        disp.textContent += string;
+    }
+    else {
+        num2 += string;
+        disp.textContent += string;
+    }
+    console.log(`${num1} ${operator} ${num2}`);
+}
+
+
+function displayStoreOperator(e) {
+    if (num1 !== '' && operator === '') {
+        operator = e.target.textContent;
+        disp.textContent += operator;
+    }
+    else if (num1 !== '' && operator !== '' && num2 !== '') {
+        let x = operate(operator, num1, num2);
+        x = x.toString();
+        resultDisplay.textContent = x;
+        num1 = x;
+        num2 = '';
+        operator = e.target.textContent;
+        disp.textContent = x+operator;
+    }
+}
 
 
 function pressEquals() {
@@ -47,11 +91,9 @@ function pressEquals() {
         resultDisplay.textContent = x;
         num1 = x;
         num2 = '';
-        mainDisplay = x;
-        disp.textContent = x;
         operator = '';
+        disp.textContent = x;
     }
-    console.log(`${num1} ${operator} ${num2}`);
 }
 
 
