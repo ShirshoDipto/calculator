@@ -1,5 +1,5 @@
 
-
+// Global variables.
 let num1 = '';
 let num2 = '';
 let operator = '';
@@ -9,8 +9,6 @@ let operator = '';
 
 const disp = document.querySelector('.display');
 const resultDisplay = document.querySelector('.resultDisplay');
-// let mainDisplay = disp.textContent;
-// const buttons = document.querySelectorAll('button');
 
 const numbers = document.querySelectorAll('.number');
 const operators = document.querySelectorAll('.operator');
@@ -19,9 +17,6 @@ const del = document.querySelector('.del');
 const negVal = document.querySelector('.neg-val');
 const dot = document.querySelector('.dot');
 const equals = document.querySelector('.equals');
-console.log(numbers);
-// const numbers = ['0','1','2','3','4','5','6','7','8','9'];
-// const operatorList = ['+', '-', '*', '/'];
 
 
 numbers.forEach(number => {
@@ -34,10 +29,26 @@ operators.forEach(oper => {
 
 
 clear.addEventListener('click', clearEverything);
-// del.addEventListener('click', backspace);
+del.addEventListener('click', backspace);
 negVal.addEventListener('click', insertNegative);
-// dot.addEventListener('click', addDecimal);
+dot.addEventListener('click', addDecimal);
 equals.addEventListener('click', pressEquals);
+
+
+function backspace(e) {
+    disp.textContent = disp.textContent.slice(0, disp.textContent.length - 1);
+    if (num2 !== '') {
+        num2 = num2.slice(0, num2.length - 1);
+    }
+    else if (operator !== '') {
+        operator = operator.slice(0, operator.length - 1);
+    }
+    else if (num1 !== '') {
+        num1 = num1.slice(0, num1.length - 1);
+    }
+
+    console.log(`num1: ${num1} operator: ${operator} num2: ${num2}`);
+}
 
 
 function insertNegative(e) {
@@ -63,7 +74,6 @@ function displayStoreNumber(e) {
         num2 += string;
         disp.textContent += string;
     }
-    console.log(`${num1} ${operator} ${num2}`);
 }
 
 
@@ -97,8 +107,13 @@ function pressEquals() {
 }
 
 
-
-
+function clearEverything() {
+    disp.textContent = '';
+    resultDisplay.textContent = '';
+    num1 = '';
+    num2 = '';
+    operator = '';
+}
 
 
 function operate(operator, num1, num2) {
@@ -272,16 +287,6 @@ function isStringOperator(string) {
 // console.log(isStringOperator('+'));
 // console.log(isStringOperator('*'));
 // console.log(isStringOperator('-'));
-
-
-function clearEverything() {
-    disp.textContent = '';
-    resultDisplay.textContent = '';
-    num1 = '';
-    num2 = '';
-    operator = '';
-    mainDisplay = '';
-}
 
 
 function storeAndDisplay(string) {
