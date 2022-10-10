@@ -1,55 +1,163 @@
 
 
+let num1 = '2';
+let num2 = '5';
+let operator = '-';
+
+
+
+
 const disp = document.querySelector('.display');
 const resultDisplay = document.querySelector('.resultDisplay');
 let mainDisplay = disp.textContent;
-const buttons = document.querySelectorAll('button');
-const numbers = ['0','1','2','3','4','5','6','7','8','9'];
-const operatorList = ['+', '-', '*', '/'];
+// const buttons = document.querySelectorAll('button');
+
+const numbers = document.querySelectorAll('.number');
+const operators = document.querySelectorAll('.operator');
+const clear = document.querySelector('.clear');
+const del = document.querySelector('.del');
+const negVal = document.querySelector('.neg-val');
+const dot = document.querySelector('.dot');
+const equals = document.querySelector('.equals');
+console.log(numbers);
+// const numbers = ['0','1','2','3','4','5','6','7','8','9'];
+// const operatorList = ['+', '-', '*', '/'];
 
 
-let num1 = '';
-let num2 = '';
-let operator = '';
+numbers.forEach(number => {
+    // button.addEventListener('click', displaytoreNumber);
+});
+
+operators.forEach(oper => {
+    button.addEventListener('click', displaytoreOperator);
+});
+
+
+clear.addEventListener('click', clearEverything);
+// del.addEventListener('click', backspace);
+// negVal.addEventListener('click', insertNegative);
+// dot.addEventListener('click', addDecimal);
+equals.addEventListener('click', pressEquals);
+
+
+function pressEquals() {
+    if (num1 !== '' && operator !== '' && num2 !== '') {
+        let x = operate(operator, num1, num2);
+        x = x.toString();
+        resultDisplay.textContent = x;
+        num1 = x;
+        num2 = '';
+        mainDisplay = x;
+        disp.textContent = x;
+        operator = '';
+    }
+    console.log(`${num1} ${operator} ${num2}`);
+}
+
+
+
+
 
 
 function operate(operator, num1, num2) {
     if (operator === '+') {
+        if (checkDecimal(num1) || checkDecimal(num2)) {
+            return parseFloat(num1) + parseFloat(num2);
+        }
         return parseInt(num1) + parseInt(num2);
     }
     else if (operator === '-') {
+        if (checkDecimal(num1) || checkDecimal(num2)) {
+            return parseFloat(num1) - parseFloat(num2);
+        }
         return parseInt(num1) - parseInt(num2);
     }
     else if (operator === '*') {
+        if (checkDecimal(num1) || checkDecimal(num2)) {
+            return parseFloat(num1) * parseFloat(num2);
+        }
         return parseInt(num1) * parseInt(num2);
     }
     else if (operator === '/') {
-        if (parseInt(num2) === 0) {
-            return "Math Error!"
+        if (checkDecimal(num1) || checkDecimal(num2)) {
+            if (parseFloat(num2) === 0) {
+                return 'Math Error!';
+            }
+            return parseFloat(num1) / parseFloat(num2);
         }
         else {
-            return parseInt(num1) / num2;
+            if (parseInt(num2 === 0)) {
+                return 'Math Error!';
+            }
+            return parseInt(num1) / parseInt(num2);
         }
     }
 }
 
-// function getFirstNumber()
 
 // test for 'operate'.
-// let x = operate('minus', 2, 3);
+// let x = operate('-', 2, 3);
 // console.log(x);
-// x = operate('add', 3.2, 2);
+// x = operate('+', 3.2, 2);
 // console.log(x);
-// x = operate('divide', 3, 0);
+// x = operate('/', 3, 0);
 // console.log(x);
-// x = operate('multi', 3, 0);
+// x = operate('*', 3, 0);
 // console.log(x);
+
+// 22+12.5
+// console.log(operate('+', '22', '12.5'));
+
+// 0/123
+// console.log(operate('/', '0', '123'));
+
+// 0.00/123
+// console.log(operate('/', '0.00', '123'));
+
+// 12.22/0
+// console.log(operate('/', '12.22', '0'));
+
+// 12.22/00.00
+// console.log(operate('/', '12.22', '00.00'));
+
+// 20*2.69
+// console.log(operate('*', '20', '2.69'));
+
+// 2.5 - 3.5
+// console.log(operate('-', '2.5', '3.5'));
+
+// 12 * 13
+// console.log(operate('*', '0', '13'));
+
+// 8/5
+// console.log(operate('/', '8', '5'))
+
 
 
 
 
 // console.log(mainDisplay);
 
+
+
+function checkDecimal(string) {
+    if (string.indexOf('.') !== -1) {
+        return true;
+    }
+    return false;
+}
+
+
+// tests for decimal check.
+// console.log(checkDecimal('.012'));
+// console.log(checkDecimal('23.08'));
+// console.log(checkDecimal('23.08'));
+// console.log(checkDecimal('23'));
+// console.log(checkDecimal(''));
+// console.log(checkDecimal('2.0000'));
+// console.log(checkDecimal('.000'));
+// console.log(checkDecimal('2888.000'));
+// console.log(checkDecimal('55.000'));
 
 
 function isOperatorPresent(string) {
@@ -90,7 +198,7 @@ function isEmpty(theString) {
 
 function isStringNumber(string) {
     if (numbers.find(x => x === string)) {
-        return true
+        return true;
     }
     else {
         return false;
@@ -234,7 +342,4 @@ function display(e) {
 
 
 
-buttons.forEach(button => {
-    // console.log(button);
-    button.addEventListener('click', display);
-});
+
