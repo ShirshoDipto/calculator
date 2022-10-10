@@ -35,6 +35,34 @@ dot.addEventListener('click', addDecimal);
 equals.addEventListener('click', pressEquals);
 
 
+function addDecimalhelper(num) {
+    if (num === '') {
+        return '0.'
+    }
+    else if (!checkDecimal(num)) {
+        return '.';
+    }
+    else {
+        return '';
+    }
+}
+
+
+function addDecimal(e) {
+    if (operator === '') {
+        let decimal = addDecimalhelper(num1); 
+        disp.textContent += decimal;
+        num1 += decimal;
+    }
+    else {
+        let decimal = addDecimalhelper(num2); 
+        disp.textContent += decimal;
+        num2 += decimal; 
+    }
+}
+
+
+
 function backspace(e) {
     disp.textContent = disp.textContent.slice(0, disp.textContent.length - 1);
     if (num2 !== '') {
@@ -67,10 +95,16 @@ function displayStoreNumber(e) {
     const string = e.target.textContent;
     // console.log(string);
     if (operator === '') {
+        if (num1 === '' && string === '0') {
+            return;
+        }
         num1 += string;
         disp.textContent += string;
     }
     else {
+        if (num2 === '' && string === '0') {
+            return;
+        }
         num2 += string;
         disp.textContent += string;
     }
