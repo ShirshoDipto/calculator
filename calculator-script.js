@@ -152,38 +152,57 @@ function clearEverything() {
 
 function operate(operator, num1, num2) {
     if (operator === '+') {
-        if (checkDecimal(num1) || checkDecimal(num2)) {
-            return parseFloat(num1) + parseFloat(num2);
-        }
-        return parseInt(num1) + parseInt(num2);
+        return parseFloat(num1) + parseFloat(num2);
     }
     else if (operator === '-') {
-        if (checkDecimal(num1) || checkDecimal(num2)) {
-            return parseFloat(num1) - parseFloat(num2);
-        }
-        return parseInt(num1) - parseInt(num2);
+        return parseFloat(num1) - parseFloat(num2);
     }
     else if (operator === '*') {
-        if (checkDecimal(num1) || checkDecimal(num2)) {
-            return parseFloat(num1) * parseFloat(num2);
-        }
-        return parseInt(num1) * parseInt(num2);
+        return parseFloat(num1) * parseFloat(num2);
     }
     else if (operator === '/') {
-        if (checkDecimal(num1) || checkDecimal(num2)) {
-            if (parseFloat(num2) === 0) {
-                return 'Math Error!';
-            }
-            return parseFloat(num1) / parseFloat(num2);
+        if (parseFloat(num2) === 0) {
+            return 'Math Error!';
         }
-        else {
-            if (parseInt(num2 === 0)) {
-                return 'Math Error!';
-            }
-            return parseInt(num1) / parseInt(num2);
-        }
+        return parseFloat(num1) / parseFloat(num2);
     }
 }
+
+
+// function operate(operator, num1, num2) {
+//     if (operator === '+') {
+//         if (checkDecimal(num1) || checkDecimal(num2)) {
+//             return parseFloat(num1) + parseFloat(num2);
+//         }
+//         return parseInt(num1) + parseInt(num2);
+//     }
+//     else if (operator === '-') {
+//         if (checkDecimal(num1) || checkDecimal(num2)) {
+//             return parseFloat(num1) - parseFloat(num2);
+//         }
+//         return parseInt(num1) - parseInt(num2);
+//     }
+//     else if (operator === '*') {
+//         if (checkDecimal(num1) || checkDecimal(num2)) {
+//             return parseFloat(num1) * parseFloat(num2);
+//         }
+//         return parseInt(num1) * parseInt(num2);
+//     }
+//     else if (operator === '/') {
+//         if (checkDecimal(num1) || checkDecimal(num2)) {
+//             if (parseFloat(num2) === 0) {
+//                 return 'Math Error!';
+//             }
+//             return parseFloat(num1) / parseFloat(num2);
+//         }
+//         else {
+//             if (parseInt(num2 === 0)) {
+//                 return 'Math Error!';
+//             }
+//             return parseInt(num1) / parseInt(num2);
+//         }
+//     }
+// }
 
 
 // test for 'operate'.
