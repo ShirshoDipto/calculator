@@ -7,6 +7,7 @@ let operator = '';
 
 function runProperFunction(e) {
     const key = document.querySelector(`button[data-key="${e.keyCode}"]`);
+    if (!key) return;
 
     key.classList.add('transform');
 
