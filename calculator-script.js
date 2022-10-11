@@ -10,8 +10,8 @@ let operator = '';
 const disp = document.querySelector('.display');
 const resultDisplay = document.querySelector('.resultDisplay');
 
-const numbers = document.querySelectorAll('.number');
-const operators = document.querySelectorAll('.operator');
+const numbers = Array.from(document.querySelectorAll('.number'));
+const operators = Array.from(document.querySelectorAll('.operator'));
 const clear = document.querySelector('.clear');
 const del = document.querySelector('.del');
 const negVal = document.querySelector('.neg-val');
@@ -19,13 +19,19 @@ const dot = document.querySelector('.dot');
 const equals = document.querySelector('.equals');
 
 
+
 numbers.forEach(number => {
-    number.addEventListener('click', displayStoreNumber);
+    number.addEventListener('click', () => {
+        displayStoreNumber(number);
+    });
 });
 
 operators.forEach(oper => {
-    oper.addEventListener('click', displayStoreOperator);
+    oper.addEventListener('click', () => {
+        displayStoreOperator(oper);
+    });
 });
+
 
 
 clear.addEventListener('click', clearEverything);
@@ -33,6 +39,54 @@ del.addEventListener('click', backspace);
 negVal.addEventListener('click', insertNegative);
 dot.addEventListener('click', addDecimal);
 equals.addEventListener('click', pressEquals);
+
+const allButtons = Array.from(document.querySelectorAll('.butt'));
+allButtons.forEach(key => key.addEventListener('click', addClass));
+allButtons.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+
+
+window.addEventListener('keydown', runProperFunction);
+
+
+function runProperFunction(e) {
+    console.log(e);
+    const key = document.querySelector(`button[data-key="${e.keyCode}"]`);
+    if (!key) return;
+
+    key.classList.add('transform');
+
+    if (numbers.includes(key)) {
+        displayStoreNumber(key);
+    }
+    else if (operators.includes(key)) {
+        displayStoreOperator(key);
+    }
+    else if (key === clear) {
+        clearEverything();
+    }
+    else if (key === del) {
+        backspace();
+    }
+    else if (key === negVal) {
+        insertNegative();
+    }
+    else if (key === dot) {
+        addDecimal();
+    }
+    else if (key === equals) {
+        pressEquals();
+    }
+}
+
+
+function addClass(e) {
+    e.target.classList.add('transform');
+}
+
+function removeTransition(e) {
+    e.target.classList.remove('transform');
+}
 
 
 function addDecimalhelper(num) {
@@ -48,7 +102,7 @@ function addDecimalhelper(num) {
 }
 
 
-function addDecimal(e) {
+function addDecimal() {
     if (operator === '') {
         let decimal = addDecimalhelper(num1); 
         disp.textContent += decimal;
@@ -63,7 +117,7 @@ function addDecimal(e) {
 
 
 
-function backspace(e) {
+function backspace() {
     disp.textContent = disp.textContent.slice(0, disp.textContent.length - 1);
     if (num2 !== '') {
         num2 = num2.slice(0, num2.length - 1);
@@ -74,12 +128,10 @@ function backspace(e) {
     else if (num1 !== '') {
         num1 = num1.slice(0, num1.length - 1);
     }
-
-    console.log(`num1: ${num1} operator: ${operator} num2: ${num2}`);
 }
 
 
-function insertNegative(e) {
+function insertNegative() {
     if (num1 === '') {
         num1 += ' -';
         disp.textContent += ' -';
@@ -91,29 +143,32 @@ function insertNegative(e) {
 }
 
 
-function displayStoreNumber(e) {
-    const string = e.target.textContent;
-    // console.log(string);
+function displayStoreNumber(numberDom) {
+    const string = numberDom.textContent;
     if (operator === '') {
         if (num1 === '' && string === '0') {
             return;
         }
-        num1 += string;
-        disp.textContent += string;
+        else if (num1.length < 12) {
+            num1 += string;
+            disp.textContent += string;
+        }
     }
     else {
         if (num2 === '' && string === '0') {
             return;
         }
-        num2 += string;
-        disp.textContent += string;
+        else if (num2.length < 12) {
+            num2 += string;
+            disp.textContent += string;
+        }
     }
 }
 
 
-function displayStoreOperator(e) {
+function displayStoreOperator(operatorDom) {
     if (num1 !== '' && operator === '') {
-        operator = e.target.textContent;
+        operator = operatorDom.textContent;
         disp.textContent += operator;
     }
     else if (num1 !== '' && operator !== '' && num2 !== '') {
@@ -122,7 +177,7 @@ function displayStoreOperator(e) {
         resultDisplay.textContent = x;
         num1 = x;
         num2 = '';
-        operator = e.target.textContent;
+        operator = operatorDom.textContent;
         disp.textContent = x+operator;
     }
 }
@@ -130,7 +185,7 @@ function displayStoreOperator(e) {
 
 function pressEquals() {
     if (num1 !== '' && operator !== '' && num2 !== '') {
-        let x = operate(operator, num1, num2);
+        let x = operate(operator, num1, num2); // 2.000000012121212
         x = x.toString();
         resultDisplay.textContent = x;
         num1 = x;
@@ -143,7 +198,7 @@ function pressEquals() {
 
 function clearEverything() {
     disp.textContent = '';
-    resultDisplay.textContent = '';
+    resultDisplay.textContent = '0';
     num1 = '';
     num2 = '';
     operator = '';
@@ -157,7 +212,7 @@ function operate(operator, num1, num2) {
     else if (operator === '-') {
         return parseFloat(num1) - parseFloat(num2);
     }
-    else if (operator === '*') {
+    else if (operator === 'x') {
         return parseFloat(num1) * parseFloat(num2);
     }
     else if (operator === '/') {
@@ -175,10 +230,6 @@ function checkString(string, char) {
     }
     return false;
 }
-
-
-// console.log(checkString('', 'k'));
-
 
 
 

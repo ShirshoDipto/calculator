@@ -33,33 +33,49 @@ body {
     align-items: center;
 }
 
-button {
-    height: 30px;
-    width: 50px;
+.butt:hover {
+    background-color: rgb(148, 191, 229);
 }
 
-.calculator, .display, .buttons, .rows, .mainDisplay, .resultDisplay {
-    border: 2px solid blue;
+.buttons, .rows, .mainDisplay {
+    border: thin solid black;
     display: flex;
 
 }
 
 .calculator {
+    display: flex;
     height: 400px;
     width: 300px;
     flex-direction: column;
     padding: 10px;
     gap: 10px;
+    border: thin solid black;
+    background-color: black;
+    border-radius: 10px;
+}
+
+.name {
+    color: white;
+    font-style: italic;
+    font-family: Arial, Helvetica, sans-serif;
+    /* font-size: 1.5em; */
+    text-align: center;
+    transform: scale(0.8, 1.2);
 }
 
 .display {
     flex: 1;
+    display: flex;
+    align-items: center;
 }
 
 .buttons {
     flex: 3;
     flex-direction: column;
+    border: none;
 }
+
 
 .rows {
     flex: 1;
@@ -70,9 +86,38 @@ button {
 .mainDisplay {
     flex-direction: column;
     flex: 1;
+    background-color: rgb(59, 80, 80);
+    border-radius: 10px;
+    border: thin solid black;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .resultDisplay {
     flex: 1;
+    border-top: thin dotted black;
+    font-size: x-large;
+    text-align: right;
+    /* margin: auto; */
+}
+
+
+button {
+    height: 40px;
+    width: 60px;
+    border-radius: 10px;
+    border: none;
+}
+
+.butt {
+    font-size: large;
+    font-weight: bold;
+    background-color: silver;
+    transition: all 0.03s ease;
+}
+
+.transform {
+    border-color: rgb(81, 107, 129);
+    transform: scale(0.95);
 }
 
