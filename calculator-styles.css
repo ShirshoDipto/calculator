@@ -7,8 +7,8 @@ body {
     background-color: rgb(65, 62, 62);
 }
 
-.header, .footer, .content, .sketch-pad, .input {
-}
+/* .header, .footer, .content, .sketch-pad, .input {
+} */
 
 .header {
     height: 60px;

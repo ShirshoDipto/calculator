@@ -146,19 +146,19 @@ function insertNegative() {
 function displayStoreNumber(numberDom) {
     const string = numberDom.textContent;
     if (operator === '') {
-        if (num1 === '' && string === '0') {
-            return;
-        }
-        else if (num1.length < 12) {
+        // if (num1 === '' && string === '0') {
+        //     return;
+        // }
+        if (num1.length < 12) {
             num1 += string;
             disp.textContent += string;
         }
     }
     else {
-        if (num2 === '' && string === '0') {
-            return;
-        }
-        else if (num2.length < 12) {
+        // if (num2 === '' && string === '0') {
+        //     return;
+        // }
+        if (num2.length < 12) {
             num2 += string;
             disp.textContent += string;
         }
