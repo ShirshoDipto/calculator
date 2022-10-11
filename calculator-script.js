@@ -5,54 +5,8 @@ let num2 = '';
 let operator = '';
 
 
-
-
-const disp = document.querySelector('.display');
-const resultDisplay = document.querySelector('.resultDisplay');
-
-const numbers = Array.from(document.querySelectorAll('.number'));
-const operators = Array.from(document.querySelectorAll('.operator'));
-const clear = document.querySelector('.clear');
-const del = document.querySelector('.del');
-const negVal = document.querySelector('.neg-val');
-const dot = document.querySelector('.dot');
-const equals = document.querySelector('.equals');
-
-
-
-numbers.forEach(number => {
-    number.addEventListener('click', () => {
-        displayStoreNumber(number);
-    });
-});
-
-operators.forEach(oper => {
-    oper.addEventListener('click', () => {
-        displayStoreOperator(oper);
-    });
-});
-
-
-
-clear.addEventListener('click', clearEverything);
-del.addEventListener('click', backspace);
-negVal.addEventListener('click', insertNegative);
-dot.addEventListener('click', addDecimal);
-equals.addEventListener('click', pressEquals);
-
-const allButtons = Array.from(document.querySelectorAll('.butt'));
-allButtons.forEach(key => key.addEventListener('click', addClass));
-allButtons.forEach(key => key.addEventListener('transitionend', removeTransition));
-
-
-
-window.addEventListener('keydown', runProperFunction);
-
-
 function runProperFunction(e) {
-    console.log(e);
     const key = document.querySelector(`button[data-key="${e.keyCode}"]`);
-    if (!key) return;
 
     key.classList.add('transform');
 
@@ -132,6 +86,7 @@ function backspace() {
 
 
 function insertNegative() {
+    if (onOff === 0) return;
     if (num1 === '') {
         num1 += ' -';
         disp.textContent += ' -';
@@ -231,6 +186,47 @@ function checkString(string, char) {
     return false;
 }
 
+
+
+
+
+// All event listeners.
+const disp = document.querySelector('.display');
+const resultDisplay = document.querySelector('.resultDisplay');
+
+const numbers = Array.from(document.querySelectorAll('.number'));
+const operators = Array.from(document.querySelectorAll('.operator'));
+const clear = document.querySelector('.clear');
+const del = document.querySelector('.del');
+const negVal = document.querySelector('.neg-val');
+const dot = document.querySelector('.dot');
+const equals = document.querySelector('.equals');
+
+
+
+numbers.forEach(number => {
+    number.addEventListener('click', () => {
+        displayStoreNumber(number);
+    });
+});
+
+operators.forEach(oper => {
+    oper.addEventListener('click', () => {
+        displayStoreOperator(oper);
+    });
+});
+
+clear.addEventListener('click', clearEverything);
+del.addEventListener('click', backspace);
+negVal.addEventListener('click', insertNegative);
+dot.addEventListener('click', addDecimal);
+equals.addEventListener('click', pressEquals);
+
+const allButtons = Array.from(document.querySelectorAll('.butt'));
+allButtons.forEach(key => key.addEventListener('click', addClass));
+allButtons.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+window.addEventListener('keydown', runProperFunction);
 
 
 
