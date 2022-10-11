@@ -87,7 +87,6 @@ function backspace() {
 
 
 function insertNegative() {
-    if (onOff === 0) return;
     if (num1 === '') {
         num1 += ' -';
         disp.textContent += ' -';
@@ -135,7 +134,7 @@ function displayStoreOperator(operatorDom) {
 
 function pressEquals() {
     if (num1 !== '' && operator !== '' && num2 !== '') {
-        let x = operate(operator, num1, num2); // 2.000000012121212
+        let x = operate(operator, num1, num2);
         x = x.toString();
         resultDisplay.textContent = x;
         num1 = x;
