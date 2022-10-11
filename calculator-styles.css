@@ -8,7 +8,6 @@ body {
 }
 
 .header, .footer, .content, .sketch-pad, .input {
-    border: 2px solid red;
 }
 
 .header {
